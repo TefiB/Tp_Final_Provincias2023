@@ -1,0 +1,26 @@
+#logout {
+    cursor: pointer;
+}
+
+.custom-navbar {
+    background-color: #015293;
+
+}
+
+.navbar {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar-brand {
+    color: white;
+}
+.navbar-brand:hover{
+    color: #00BFFF;
+}
+/*Si pongo esto: navbar-brand, .navbar-light .nav-link hace que Principal este celeste pero el hover se vuelve negro. */
+.navbar-light .nav-link {
+    color: #ffffff;
+}
+.navbar-light .nav-link:hover {
+    color: #00BFFF;
+}

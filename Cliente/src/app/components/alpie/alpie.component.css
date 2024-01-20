@@ -1,0 +1,30 @@
+.footer-person {
+    padding: 10px;
+}
+
+.footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-name {
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+.footer-github {
+    color: #0366d6;
+}
+
+.footer-separator {
+    width: 3px;
+    height: 30px;
+    background-color: #ccc;
+    margin: 0 10px;
+  }

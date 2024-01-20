@@ -1,0 +1,95 @@
+<div class="todo">
+    <table border="2">
+        <thead>
+            <th>ID</th>
+            <th>Bandera</th>
+            <th>Provincia</th>
+            <th>Capital</th>
+            <th>Descripcion</th>
+            <th>Accion</th>
+        </thead>
+        <tbody *ngIf="provincias.length > 0; else fila">
+            <tr *ngFor=" let provincia of provincias">
+                <td>{{provincia.id}}</td>
+                <!-- <td><img [src]="provincia.imagen" alt="Bandera de {{ provincia.imagen }}" width="50" height="25"></td> -->
+                <td><img [src]="provincia.imagen" [alt]="'Bandera de ' + provincia.imagen" width="50" height="25"></td>
+                <td>{{provincia.nombre}}</td>
+                <td>{{provincia.capital}}</td>
+                <td>{{provincia.descripcion}}</td>
+                <td><button class="btn btn-danger" (click)=eliminar($event) value="{{provincia.id}}">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+        <ng-template #fila>
+            <tbody>
+                <tr>
+                    <td colspan="4">No hay mas filas</td>
+                </tr>
+            </tbody>
+        </ng-template>
+    </table>
+    <br>
+    <form (submit)="actualizar()" method="post">
+        <fieldset>
+            <legend>Seleccione una provincia para modificar</legend>
+            <select required [(ngModel)]="id_select" name="id_select" (change)="seleccionaValor($event)">
+                <option class="dropdown-item" disabled selected value="undefined">Seleccione ID</option>
+                <option *ngFor="let provincia of provincias" [value]="provincia.id">{{provincia.id}}</option>
+            </select>
+            <input type="text" [(ngModel)]="provinciaTemporal.nombre" name="provinciaTemporal.nombre"
+                placeholder="Nombre">
+            <input type="text" [(ngModel)]="provinciaTemporal.capital" name="provinciaTemporal.capital"
+                placeholder="Capital">
+            <input type="text" [(ngModel)]="provinciaTemporal.descripcion" name="provinciaTemporal.descripcion"
+                placeholder="Descripcion">
+            <!--  -->
+            <select [(ngModel)]="provinciaTemporal.imagen" name="provinciaTemporal.imagen">
+                <option *ngFor="let imagen of imagenes" [value]="imagen.url">
+                    {{ imagen.nombre }}
+                    <span class="bandera">
+                        <img [src]="imagen.url" alt="Bandera" width="50" height="50">
+                    </span>
+                </option>
+            </select>
+
+
+            <button class="btn btn-success">Actualizar</button>
+        </fieldset>
+    </form>
+
+    <br>
+    <form (submit)="agregar()" method="post">
+        <fieldset>
+            <legend>Nueva provincia</legend>
+            <input type="text" [(ngModel)]="nuevo.nombre" name="nuevo.nombre" placeholder="Nombre">
+            <input type="text" [(ngModel)]="nuevo.capital" name="nuevo.capital" placeholder="Capital">
+            <input type="text" [(ngModel)]="nuevo.descripcion" name="nuevo.descripcion" placeholder="Descripcion">
+            <!-- <input type="text" [(ngModel)]="nuevo.imagen" name="nuevo.imagen" placeholder="Bandera"> -->
+
+            <select required [(ngModel)]="nuevo.imagen" name="nuevo.imagen" (change)="seleccionaBand($event)">
+                <option class="dropdown-item" disabled selected value="undefined">Seleccione Bandera</option>
+                <option *ngFor="let imagen of imagenes" [value]="imagen.nombre">{{imagen.nombre}}</option>
+            </select>
+            <button (click)="validarCampos()" class="btn btn-success">Agregar</button>
+        </fieldset>
+    </form>
+
+    <div>
+        <div [ngSwitch]="errorProvincia">
+            <div *ngSwitchCase="1">Debes completar el campo Provincia.</div>
+            <div *ngSwitchCase="2">Provincia muy larga.</div>
+            <div *ngSwitchCase="3">Provincia debe ser alfabetico.</div>
+        </div>
+
+        <div [ngSwitch]="errorCapital">
+            <div *ngSwitchCase="1">Debes completar el campo Capital.</div>
+            <div *ngSwitchCase="2">Capital muy larga.</div>
+            <div *ngSwitchCase="3">Capital debe ser alfabetico.</div>
+        </div>
+
+        <div [ngSwitch]="OkActualizacion">
+            <div *ngSwitchCase="0">Se ha agregado la provincia correctamente!</div>
+        </div>
+    </div>
+
+</div>

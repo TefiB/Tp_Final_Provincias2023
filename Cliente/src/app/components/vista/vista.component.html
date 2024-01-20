@@ -1,0 +1,30 @@
+<div class="todo">
+    <h1>Provincias de Argentina</h1>
+    <hr>
+    <div class="tabla">
+        <table>
+            <thead>
+                <th>Bandera</th>
+                <th>Provincia</th>
+                <th>Capital</th>
+                <th>Descripcion</th>
+    
+            </thead>
+            <tbody *ngIf="provincias.length > 0; else fila">
+                <tr *ngFor=" let provincia of provincias">
+                    <td><img [src]="provincia.imagen" [alt]="'Bandera de ' + provincia.imagen" width="50" height="25"></td>
+                    <td>{{provincia.nombre}}</td>
+                    <td>{{provincia.capital}}</td>
+                    <td>{{provincia.descripcion}}</td>
+                </tr>
+            </tbody>
+            <ng-template #fila>
+                <tbody>
+                    <tr>
+                        <td colspan="4">No hay mas filas</td>
+                    </tr>
+                </tbody>
+            </ng-template>
+        </table>
+    </div>
+</div>
